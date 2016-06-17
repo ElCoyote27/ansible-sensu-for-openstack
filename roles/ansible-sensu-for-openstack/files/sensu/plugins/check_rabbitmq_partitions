@@ -1,0 +1,16 @@
+#!/bin/bash
+  
+# No warning/critical threshold, even one network partition will raise alert flag.
+# Usage: ./check_rabbit_partitions
+RABBIT_PARTITIONS=$(/usr/sbin/rabbitmqctl cluster_status | grep partitions | grep rabbit)
+  
+if [ ! -z "$RABBIT_PARTITIONS" ]; then
+        echo "CRITICAL: Rabbit network partitions exists! $RABBIT_PARTITIONS"
+        $(exit 2)
+#elif [ "" ]; then
+#        echo "WARNING: "
+#        $(exit 1)
+else
+        echo "OK: No Rabbit network partitions."
+        $(exit 0)
+fi

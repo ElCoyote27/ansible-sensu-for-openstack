@@ -1,0 +1,32 @@
+{
+  "checks": {
+    "amqp_nova-compute": {
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp nova-compute",
+      "subscribers": [
+        "cmpt"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_ceilometer-agent-compute": {
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp ceilometer-agent-compute",
+      "subscribers": [
+        "cmpt"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_nova_compute": {
+      "command": "{{ sensu_plugins_path }}/check_proc nova-compute 1 100",
+      "subscribers": [
+        "cmpt"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_ceilometer-agent-compute": {
+      "command": "{{ sensu_plugins_path }}/check_proc ceilometer-agent-compute 1 1",
+      "subscribers": [
+        "cmpt"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "checks": {
+    "ceph_health": {
+      "handlers": ["default", "email"],
+      "command": "/usr/bin/sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_ceph_health",
+      "subscribers": [
+        "ceph"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "ceph_disk_free": {
+      "handlers": ["default", "email"],
+      "command": "/usr/bin/sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_ceph_df",
+      "subscribers": [
+        "ceph"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    }
+  }
+}

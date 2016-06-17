@@ -1,0 +1,44 @@
+{
+  "checks": {
+    "instack_glance_api": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_glance_api --os-username {{ under_os_username }} --os-password {{ under_os_password }} --os-tenant-name {{ under_os_tenant_name }} --os-auth-url {{ under_os_auth_url }}",
+      "subscribers": [
+        "openstack_under_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "instack_glance_image_exists": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_glance_image_exists --os-username {{ under_os_username }} --os-password {{ under_os_password }} --os-tenant-name {{ under_os_tenant_name }} --os-auth-url {{ under_os_auth_url }}",
+      "subscribers": [
+        "openstack_under_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "instack_glance_upload": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_glance_upload --os-username {{ under_os_username }} --os-password {{ under_os_password }} --os-tenant-name {{ under_os_tenant_name }} --os-auth-url {{ under_os_auth_url }}",
+      "subscribers": [
+        "openstack_under_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "instack_keystone_api": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_keystone_api --os-username {{ under_os_username }} --os-password {{ under_os_password }} --os-tenant-name {{ under_os_tenant_name }} --os-auth-url {{ under_os_auth_url }}",
+      "subscribers": [
+        "openstack_under_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "instack_nova_api": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_nova_api --os-username {{ under_os_username }} --os-password {{ under_os_password }} --os-tenant-name {{ under_os_tenant_name }} --os-auth-url {{ under_os_auth_url }}",
+      "subscribers": [
+        "openstack_under_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    }
+  }
+}

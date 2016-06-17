@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "ntpd_health": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_ntpmon --okpeers 1",
+      "subscribers": [
+        "overcld_generic"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_ntpd": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc ntpd 1 1",
+      "subscribers": [
+        "overcld_generic"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_xinetd": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc xinetd 1 1",
+      "subscribers": [
+        "overcld_generic"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    }
+  }
+}

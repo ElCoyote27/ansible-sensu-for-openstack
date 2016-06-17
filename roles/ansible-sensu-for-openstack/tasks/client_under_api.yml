@@ -1,0 +1,11 @@
+---
+- name: generate openstack_under_api json (UnderCloud)
+  template:
+    src=openstack_under_api.json.j2
+    dest={{ sensu_config_path }}/conf.d/openstack_under_api.json
+    owner=sensu
+    group=sensu
+    mode=0640
+    backup=yes
+  notify:
+    - restart sensu client

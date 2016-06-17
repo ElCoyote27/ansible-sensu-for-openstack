@@ -1,0 +1,21 @@
+---
+- name: generate strg json
+  template:
+    src=strg.json.j2
+    dest={{ sensu_config_path }}/conf.d/strg.json
+    owner=sensu
+    group=sensu
+    mode=0640
+    backup=yes
+  notify:
+    - restart sensu client
+
+- name: generate sudoers for sensu on strg
+  template:
+    src=sensu_sudoers_strg.json.j2
+    dest=/etc/sudoers.d/sensu_strg
+    owner=root
+    group=root
+    mode=0440
+    backup=yes
+

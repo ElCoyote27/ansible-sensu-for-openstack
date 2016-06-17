@@ -1,0 +1,20 @@
+---
+- name: generate ceph json
+  template:
+    src=ceph.json.j2
+    dest={{ sensu_config_path }}/conf.d/ceph.json
+    owner=sensu
+    group=sensu
+    mode=0640
+    backup=yes
+  notify:
+    - restart sensu client
+
+- name: generate sudoers for sensu on ceph
+  template:
+    src=sensu_sudoers_ceph.json.j2
+    dest=/etc/sudoers.d/sensu_ceph
+    owner=root
+    group=root
+    mode=0440
+    backup=yes

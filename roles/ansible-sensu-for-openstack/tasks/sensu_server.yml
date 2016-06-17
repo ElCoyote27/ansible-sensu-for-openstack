@@ -1,0 +1,140 @@
+---
+- name: Install Redis,Sensu,Uchiwa (local install)
+  yum: name={{ item }} state=present
+  with_items:
+    - /var/tmp/rpms/server/erlang-asn1-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-compiler-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-crypto-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-erts-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-hipe-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-inets-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-kernel-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-mnesia-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-os_mon-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-otp_mibs-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-public_key-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-runtime_tools-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-sasl-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-sd_notify-0.1-2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-snmp-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-ssl-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-stdlib-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-syntax_tools-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-tools-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/erlang-xmerl-R16B-03.10min.2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/gperftools-libs-2.4-7.el7.x86_64.rpm
+    - /var/tmp/rpms/server/libunwind-1.1-5.el7.x86_64.rpm
+    - /var/tmp/rpms/server/lksctp-tools-1.0.13-3.el7.x86_64.rpm
+    - /var/tmp/rpms/server/openstack-selinux-0.6.46-1.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-ceilometerclient-1.0.14-1.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-extras-0.0.3-2.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-fixtures-0.3.14-3.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-iso8601-0.1.10-2.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-keyring-5.0-1.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-keystoneclient-1.3.0-2.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-mimeparse-0.1.4-1.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-msgpack-0.4.6-1.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/python-netaddr-0.7.12-1.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-netifaces-0.10.4-1.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/python-oslo-config-1.9.3-1.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-oslo-i18n-1.5.0-3.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-oslo-serialization-1.4.0-1.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-oslo-utils-1.4.0-1.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-pbr-0.10.8-1.el7.noarch.rpm
+    - /var/tmp/rpms/server/python-stevedore-1.3.0-1.1.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-testtools-1.1.0-1.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-webob-1.2.3-6.el7.noarch.rpm
+    - /var/tmp/rpms/server/pyparsing-2.0.3-1.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-cliff-1.10.0-2.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-cmd2-0.6.7-5.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-neutronclient-2.4.0-2.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/python-cinderclient-1.2.1-1.el7ost.noarch.rpm
+    - /var/tmp/rpms/server/pytz-2012d-5.el7.noarch.rpm
+    - /var/tmp/rpms/server/redis-2.8.24-1.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/uchiwa-0.8.1-2.el7ost.x86_64.rpm
+    - /var/tmp/rpms/server/mailx-12.5-12.el7_0.x86_64.rpm
+  when: sensu_use_local_repo is defined and sensu_use_local_repo == true
+
+- name: Install Redis,Sensu,Uchiwa (Red Hat CDN install)
+  yum: name={{ item }} enablerepo=rhel-7-server-openstack-7.0-optools-rpms state=present
+  with_items:
+    - python-ceilometerclient
+    - python-neutronclient
+    - python-glanceclient
+    - python-cinderclient
+    - python-ceilometerclient
+    - gperftools-libs
+    - libunwind
+    - redis
+    - perl
+    - mailx
+  when: sensu_use_local_repo is not defined or sensu_use_local_repo == false
+
+- name: Start Redis and make it survive a reboot
+  service:
+    name={{ item }}
+    enabled=yes
+    state=started
+  with_items:
+    - redis
+
+- name: generate config files
+  template:
+    src={{ item }}.json.j2
+    dest={{ sensu_config_path }}/conf.d/{{ item }}.json
+    owner=sensu
+    group=sensu
+    mode=0640
+  with_items:
+    - redis
+    - api
+    - ceph
+    - cmpt
+    - ctrl
+    - strg
+    - instack
+    - system
+    - sensu_server
+    - overcld_generic
+  notify:
+    - restart sensu server
+
+- name: generate handlers config file
+  template:
+    src=handlers.json.j2
+    dest={{ sensu_config_path }}/conf.d/handlers.json
+    owner=sensu
+    group=sensu
+    mode=0640
+  notify:
+    - restart sensu server
+  when: sensu_handlers is defined
+
+- name: Start sensu-{server,api} and make it survive a reboot
+  service:
+    name=sensu-{{ item }}
+    enabled=yes
+    state=started
+  with_items:
+    - server
+    - api
+
+- name: generate sudoers for sensu on sensu server
+  template:
+    src=sensu_sudoers_server.json.j2
+    dest=/etc/sudoers.d/sensu_server
+    owner=root
+    group=root
+    mode=0440
+    backup=yes
+
+- name: Setup custom sensu extensions
+  copy:
+    src: "sensu/extensions/{{ item }}"
+    dest: "/etc/sensu/extensions/{{ item }}"
+    mode: "0555"
+    owner: "sensu"
+    group: "sensu"
+  with_items:
+    - filter_check_retry_occurrences.rb
+    - filter_disabled_or_silenced.rb

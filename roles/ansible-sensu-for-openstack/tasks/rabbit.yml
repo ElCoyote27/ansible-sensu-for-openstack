@@ -1,0 +1,27 @@
+---
+- name: Deploy RabbitMQ config for Sensu (Non-SSL)
+  template:
+    dest: "{{ sensu_config_path }}/conf.d/rabbitmq.json"
+    src: rabbitmq.json.j2
+    owner: sensu
+    group: sensu
+    mode: 0640
+    backup: yes
+  notify:
+    - restart sensu server
+    - restart sensu client
+  when: sensu_api_ssl is not defined or sensu_api_ssl == false
+
+- name: Deploy RabbitMQ config for Sensu (SSL)
+  template:
+    dest: "{{ sensu_config_path }}/conf.d/rabbitmq.json"
+    src: rabbitmq_ssl.json.j2
+    owner: sensu
+    group: sensu
+    mode: 0640
+    backup: yes
+  notify:
+    - restart sensu server
+    - restart sensu client
+  when: sensu_api_ssl is defined and sensu_api_ssl == true
+

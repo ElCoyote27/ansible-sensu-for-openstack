@@ -1,0 +1,76 @@
+{
+  "checks": {
+    "proc_swift-object-server": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc swift-object-server 1 2",
+      "subscribers": [
+        "strg"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_swift-account-server": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc swift-account-server 1 2",
+      "subscribers": [
+        "strg"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_swift-container-server": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc swift-container-server 1 2",
+      "subscribers": [
+        "strg"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_swift-object-replicator": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc swift-object-replicator 1 2",
+      "subscribers": [
+        "strg"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_swift-account-replicator": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc swift-account-replicator 1 2",
+      "subscribers": [
+        "strg"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_swift-container-replicator": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc swift-container-replicator 1 2",
+      "subscribers": [
+        "strg"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_swift-object-auditor": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc swift-object-auditor 1 3",
+      "subscribers": [
+        "strg"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_swift-account-auditor": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc swift-account-auditor 1 2",
+      "subscribers": [
+        "strg"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_swift-container-auditor": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc swift-container-auditor 1 2",
+      "subscribers": [
+        "strg"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    }
+  }
+}

@@ -1,0 +1,41 @@
+---
+# tasks file for sensu
+- include: common.yml
+
+- include: ssl.yml
+  when: sensu_api_ssl is defined and sensu_api_ssl == true
+
+- include: ceph.yml
+  when: inventory_hostname in groups.ceph
+
+- include: cmpt.yml
+  when: inventory_hostname in groups.cmpt
+
+- include: ctrl.yml
+  when: inventory_hostname in groups.ctrl
+
+- include: strg.yml
+  when: inventory_hostname in groups.strg
+
+- include: instack.yml
+  when: inventory_hostname in groups.instack
+
+- include: uchiwa.yml
+  when: sensu_install_server and sensu_install_uchiwa
+
+- include: client_under_api.yml
+  when: inventory_hostname in groups.sensu_server
+
+- include: client_over_api.yml
+  when: inventory_hostname in groups.sensu_server
+
+- include: rabbit.yml
+
+- include: rabbit_server.yml
+  when: sensu_install_server is defined and sensu_install_server == true
+
+- include: sensu_server.yml
+  when: sensu_install_server is defined and sensu_install_server == true
+
+- include: client_common.yml
+  when: sensu_install_client

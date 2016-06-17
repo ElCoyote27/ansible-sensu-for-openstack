@@ -1,0 +1,84 @@
+{
+  "checks": {
+    "over_ceilometer_api": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_ceilometer_api --os-username {{ over_os_username }} --os-password {{ over_os_password }} --os-tenant-name {{ over_os_tenant_name }} --os-auth-url {{ over_os_auth_url }} -w 60 -c 120",
+      "subscribers": [
+        "openstack_over_api"
+      ],
+      "interval": 300, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "over_cinder_volume": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_cinder_volume --username {{ over_os_username }} --password {{ over_os_password }} --tenant {{ over_os_tenant_name }} --auth_url {{ over_os_auth_url }}",
+      "subscribers": [
+        "openstack_over_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "over_glance_api": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_glance_api --os-username {{ over_os_username }} --os-password {{ over_os_password }} --os-tenant-name {{ over_os_tenant_name }} --os-auth-url {{ over_os_auth_url }}",
+      "subscribers": [
+        "openstack_over_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "over_glance_image_exists": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_glance_image_exists --os-username {{ over_os_username }} --os-password {{ over_os_password }} --os-tenant-name {{ over_os_tenant_name }} --os-auth-url {{ over_os_auth_url }}",
+      "subscribers": [
+        "openstack_over_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "over_glance_upload": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_glance_upload --os-username {{ over_os_username }} --os-password {{ over_os_password }} --os-tenant-name {{ over_os_tenant_name }} --os-auth-url {{ over_os_auth_url }}",
+      "subscribers": [
+        "openstack_over_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "over_keystone_api": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_keystone_api --os-username {{ over_os_username }} --os-password {{ over_os_password }} --os-tenant-name {{ over_os_tenant_name }} --os-auth-url {{ over_os_auth_url }}",
+      "subscribers": [
+        "openstack_over_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "over_neutron_api": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_neutron_api --os-username {{ over_os_username }} --os-password {{ over_os_password }} --os-tenant-name {{ over_os_tenant_name }} --os-auth-url {{ over_os_auth_url }}",
+      "subscribers": [
+        "openstack_over_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "over_neutron_floating_ip": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_neutron_floating_ip --username {{ over_os_username }} --password {{ over_os_password }} --tenant {{ over_os_tenant_name }} --auth_url {{ over_os_auth_url }}",
+      "subscribers": [
+        "openstack_over_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "over_nova_api": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_nova_api --os-username {{ over_os_username }} --os-password {{ over_os_password }} --os-tenant-name {{ over_os_tenant_name }} --os-auth-url {{ over_os_auth_url }}",
+      "subscribers": [
+        "openstack_over_api"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "over_nova_instance": {
+      "handlers": ["default", "email"],
+      "command": "/usr/libexec/openstack-monitoring/checks/oschecks-check_nova_instance --username {{ over_os_username }} --password {{ over_os_password }} --tenant {{ over_os_tenant_name }} --auth_url {{ over_os_auth_url }}",
+      "subscribers": [
+        "openstack_over_api"
+      ],
+      "interval": 300, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    }
+  }
+}

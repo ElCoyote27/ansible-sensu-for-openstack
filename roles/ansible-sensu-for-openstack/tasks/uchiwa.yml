@@ -1,0 +1,74 @@
+---
+- set_fact:
+    uchiwa_rpm_version: "uchiwa-0.8.1-2.el7ost.x86_64.rpm"
+  when: sensu_use_upstream_version is not defined or sensu_use_upstream_version == false
+
+- set_fact:
+    uchiwa_rpm_version: "uchiwa-0.14.2-1.x86_64.rpm"
+  when: sensu_use_upstream_version is defined and sensu_use_upstream_version == true
+
+- name: Install Uchiwa (local install)
+  yum: name={{ item }} state=present
+  with_items:
+    - /var/tmp/rpms/server/{{ uchiwa_rpm_version }}
+  when: sensu_use_local_repo is defined and sensu_use_local_repo == true
+
+- name: Install Uchiwa (Red Hat CDN install)
+  yum: name=uchiwa enablerepo=rhel-7-server-openstack-7.0-optools-rpms state=present
+  when: sensu_use_local_repo is not defined or sensu_use_local_repo == false
+
+- name: Create Uchiwa config file (Basic Version)
+  template:
+    src=uchiwa.json.j2
+    dest=/etc/uchiwa/uchiwa.json
+    owner=uchiwa
+    group=uchiwa
+    mode=0640
+    backup=yes
+  notify:
+    - restart uchiwa service
+  when: sensu_use_upstream_version is not defined or sensu_use_upstream_version == false
+
+- name: Create Uchiwa config file (UpStream Version)
+  template:
+    src=uchiwa.json.j2
+    dest={{ sensu_config_path }}/uchiwa.json
+    owner=uchiwa
+    group=uchiwa
+    mode=0640
+    backup=yes
+  notify:
+    - restart uchiwa service
+  when: sensu_use_upstream_version is defined and sensu_use_upstream_version == true
+
+- name: Create Uchiwa config file (UpStream Version with SSL)
+  template:
+    src=uchiwa_ssl.json.j2
+    dest={{ sensu_config_path }}/uchiwa.json
+    owner=uchiwa
+    group=uchiwa
+    mode=0640
+    backup=yes
+  notify:
+    - restart uchiwa service
+  when: sensu_use_upstream_version is defined and sensu_api_ssl is defined and sensu_use_upstream_version == true and sensu_api_ssl == true
+
+
+# See: https://github.com/sensu/uchiwa/issues/404
+- name: Apply patch to uchiwa dashboard to get outputs even when GREEN
+  copy:
+    src=uchiwa/client.html
+    dest=/usr/share/uchiwa/public/bower_components/uchiwa-web/partials/views/client.html
+    owner=uchiwa
+    group=uchiwa
+    mode=0644
+    backup=no
+  notify:
+    - restart uchiwa service
+  when: sensu_use_upstream_version is not defined or sensu_use_upstream_version == false
+
+- name: Start Uchiwa and make it survive a reboot
+  service:
+    name=uchiwa
+    enabled=yes
+    state=started

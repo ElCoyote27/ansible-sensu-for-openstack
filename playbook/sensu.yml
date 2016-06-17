@@ -1,0 +1,87 @@
+---
+- hosts: sensu_server
+  remote_user: admin
+  become: yes
+  become_method: sudo
+
+  roles:
+    - ansible-sensu-for-openstack
+
+  vars:
+    sensu_use_upstream_version: false
+    sensu_install_server: true
+    sensu_install_uchiwa: true
+    sensu_client_subscription_names:
+      - system
+      - openstack_over_api
+      - openstack_under_api
+      - server
+
+- hosts: ceph
+  remote_user: heat-admin
+  become: yes
+  become_method: sudo
+
+  roles:
+    - ansible-sensu-for-openstack
+
+  vars:
+    sensu_client_subscription_names:
+      - system
+      - ceph
+      - overcld_generic
+
+- hosts: cmpt
+  remote_user: heat-admin
+  become: yes
+  become_method: sudo
+
+  roles:
+    - ansible-sensu-for-openstack
+
+  vars:
+    sensu_client_subscription_names:
+      - system
+      - cmpt
+      - overcld_generic
+
+- hosts: ctrl
+  remote_user: heat-admin
+  become: yes
+  become_method: sudo
+
+  roles:
+    - ansible-sensu-for-openstack
+
+  vars:
+    sensu_client_subscription_names:
+      - system
+      - ctrl
+      - overcld_generic
+
+- hosts: strg
+  remote_user: heat-admin
+  become: yes
+  become_method: sudo
+
+  roles:
+    - ansible-sensu-for-openstack
+
+  vars:
+    sensu_client_subscription_names:
+      - system
+      - strg
+      - overcld_generic
+
+- hosts: instack
+  remote_user: stack
+  become: yes
+  become_method: sudo
+
+  roles:
+    - ansible-sensu-for-openstack
+
+  vars:
+    sensu_client_subscription_names:
+      - system
+      - instack

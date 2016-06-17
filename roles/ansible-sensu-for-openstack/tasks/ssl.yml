@@ -1,0 +1,16 @@
+---
+# tasks/ssl.yml: Deploy the client SSL cert/key to client systems
+
+  - include: ssl_generate.yml
+    when: sensu_ssl_gen_certs is defined and sensu_ssl_gen_certs == true
+
+  - name: Deploy the Sensu client SSL cert/key
+    copy:
+      src: "{{ item }}"
+      owner: "{{ sensu_user_name }}"
+      group: "{{ sensu_group_name }}"
+      dest: "{{ sensu_config_path }}/ssl"
+    with_items:
+      - "{{ sensu_ssl_client_cert }}"
+      - "{{ sensu_ssl_client_key }}"
+    notify: restart sensu-client service

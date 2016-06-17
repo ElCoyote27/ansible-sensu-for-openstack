@@ -1,0 +1,20 @@
+---
+- name: generate instack json
+  template:
+    src=instack.json.j2
+    dest={{ sensu_config_path }}/conf.d/instack.json
+    owner=sensu
+    group=sensu
+    mode=0640
+    backup=yes
+  notify:
+    - restart sensu client
+
+- name: generate sudoers for sensu on undercloud
+  template:
+    src=sensu_sudoers_instack.json.j2
+    dest=/etc/sudoers.d/sensu_instack
+    owner=root
+    group=root
+    mode=0440
+    backup=yes

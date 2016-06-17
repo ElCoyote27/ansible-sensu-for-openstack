@@ -1,0 +1,92 @@
+{
+  "checks": {
+    "LSI_RAID_status": {
+      "handlers": ["default", "email"],
+      "command": "sudo {{ sensu_plugins_path }}/megaclisas-status --nagios",
+      "subscribers": [
+        "system"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "linux_bonding": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_linux_bonding",
+      "subscribers": [
+        "system"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "sensu_client": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc sensu-client 1 5",
+      "subscribers": [
+        "system"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "system_file_descriptors": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_open_fds",
+      "subscribers": [
+        "system"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "system_CPU": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_cpu",
+      "subscribers": [
+        "system"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "system_memory": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_mem",
+      "subscribers": [
+        "system"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "system_FS_root": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_disk -c 90 -w 80 -d /",
+      "subscribers": [
+        "system"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "system_FS_root_inodes": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_disk_inodes -w 80 -c 90 -p /",
+      "subscribers": [
+        "system"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_crond": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc crond 1 1",
+      "subscribers": [
+        "system"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_systemd": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc systemd 1 100",
+      "subscribers": [
+        "system"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_sshd": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc sshd 1 100",
+      "subscribers": [
+        "system"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    }
+  }
+}

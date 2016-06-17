@@ -1,0 +1,29 @@
+[all:vars]
+ansible_ssh_user=heat-admin
+
+[cmpt]
+overcloud-novacompute-0 ansible_ssh_host=192.0.2.18
+overcloud-novacompute-1 ansible_ssh_host=192.0.2.17
+overcloud-novacompute-2 ansible_ssh_host=192.0.2.19
+
+[ctrl]
+overcloud-controller-0 ansible_ssh_host=192.0.2.21
+overcloud-controller-1 ansible_ssh_host=192.0.2.20
+overcloud-controller-2 ansible_ssh_host=192.0.2.23
+
+[ceph]
+overcloud-cephstorage-0  ansible_ssh_host=192.0.2.13
+overcloud-cephstorage-1  ansible_ssh_host=192.0.2.12
+overcloud-cephstorage-2  ansible_ssh_host=192.0.2.14
+
+[strg]
+overcloud-objectstorage-0 ansible_ssh_host=192.0.2.24
+overcloud-objectstorage-1 ansible_ssh_host=192.0.2.15
+overcloud-objectstorage-2 ansible_ssh_host=192.0.2.16
+
+[sensu_server]
+sensu01 ansible_ssh_host=192.0.2.6 ansible_ssh_user=admin
+
+[instack]
+undercloud4   ansible_connection=local
+

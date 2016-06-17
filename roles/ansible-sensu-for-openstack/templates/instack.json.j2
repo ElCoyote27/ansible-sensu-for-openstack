@@ -1,0 +1,37 @@
+{
+  "checks": {
+    "heat_service_list": {
+      "handlers": ["default", "email"],
+      "command": "/usr/bin/sudo /usr/bin/heat-manage service list",
+      "subscribers": [
+        "ctrl",
+        "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "rabbitmq_conn_count_instack": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_rabbitmq -a connection_count -W 1000 -C 2000",
+      "subscribers": [
+        "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "rabbitmq_mem_usage_instack": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_rabbitmq -a mem_usage -W 75 -C 90",
+      "subscribers": [
+        "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_chronyd": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc chronyd 1 1",
+      "subscribers": [
+        "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    }
+  }
+}

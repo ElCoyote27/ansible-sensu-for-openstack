@@ -1,0 +1,302 @@
+{
+  "checks": {
+    "rabbitmq_status": {
+      "command": "/usr/bin/sudo /usr/sbin/rabbitmqctl status",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "rabbitmq_cluster_partitions": {
+      "command": "/usr/bin/sudo {{ sensu_plugins_path }}/check_rabbitmq_partitions",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "galera_cluster_status": {
+      "command": "/usr/bin/sudo {{ sensu_plugins_path }}/check_galera_cluster",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "rabbitmq_cluster_status": {
+      "command": "/usr/bin/sudo /usr/sbin/rabbitmqctl cluster_status",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "pacemaker_status": {
+      "command": "/usr/bin/sudo /usr/sbin/crm_mon -s",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "pacemaker_crm_status": {
+      "command": "{{ sensu_plugins_path }}/check_crm",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "redis-server_overcloud": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_redis",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "memcached": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_memcached",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "rabbitmq_conn_count_over": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_rabbitmq -a connection_count -W 8000 -C 15000",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "rabbitmq_mem_usage_over": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_rabbitmq -a mem_usage -W 75 -C 90",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "mongodb": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_mongodb",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_keystone_all": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc keystone-all 3 100",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_haproxy": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc haproxy 2 1000",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_httpd": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc httpd 3 100",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_mongod": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc mongod 1 1",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_nova_api": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc nova-api 1 100",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_glance_api": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc glance-api 1 100",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_glance_registry": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc glance-registry 1 100",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_nova_conductor": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc nova-conductor 1 100",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_nova_consoleauth": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc nova-consoleauth  1 3",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_nova_novncproxy": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc nova-novncproxy  1 50",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_neutron-server": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc neutron-server 1 100",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_neutron-l3-agent": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc neutron-l3-agent 1 1",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_neutron-dhcp-agent": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc neutron-dhcp-agent 1 1",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_neutron-openvswitch-agent": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc neutron-openvswitch-agent 1 1",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "proc_neutron-metadata-agent": {
+      "handlers": ["default", "email"],
+      "command": "{{ sensu_plugins_path }}/check_proc neutron-metadata-agent 1 100",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_ceilometer-collector": {
+      "handlers": ["default", "email"],
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp ceilometer-collector",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_ceilometer-agent-notification" : {
+      "handlers": ["default", "email"],
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp ceilometer-agent-notification",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_ceilometer-alarm-notifier" : {
+      "handlers": ["default", "email"],
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp ceilometer-alarm-notifier",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_cinder-scheduler" : {
+      "handlers": ["default", "email"],
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp cinder-scheduler",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_nova-consoleauth" : {
+      "handlers": ["default", "email"],
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp nova-consoleauth",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_nova-conductor" : {
+      "handlers": ["default", "email"],
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp nova-conductor",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_nova-scheduler" : {
+      "handlers": ["default", "email"],
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp nova-scheduler",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_neutron-server" : {
+      "handlers": ["default", "email"],
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp neutron-server",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_neutron-l3-agent" : {
+      "handlers": ["default", "email"],
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp neutron-l3-agent",
+      "subscribers": [
+        "ctrl"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_neutron-lbaas-agent" : {
+      "handlers": ["default", "email"],
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp neutron-lbaas-agent",
+      "subscribers": [
+        "lbaas"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_neutron-dhcp-agent" : {
+      "handlers": ["default", "email"],
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp neutron-dhcp-agent",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    },
+    "amqp_heat-engine" : {
+      "handlers": ["default", "email"],
+      "command": "sudo /usr/libexec/openstack-monitoring/checks/oschecks-check_amqp heat-engine",
+      "subscribers": [
+        "ctrl", "instack"
+      ],
+      "interval": {{ sensu_default_interval }}, "occurrences": {{ sensu_default_occurrences }}, "refresh": {{ sensu_default_refresh }}
+    }
+  }
+}

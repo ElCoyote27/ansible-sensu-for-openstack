@@ -1,0 +1,64 @@
+---
+- name: Install RabbitMQ (local install)
+  yum: name={{ item }} state=present
+  with_items:
+    - /var/tmp/rpms/server/rabbitmq-server-3.3.5-18.el7ost.noarch.rpm
+  when: sensu_use_local_repo is defined and sensu_use_local_repo == true
+
+- name: Install RabbitMQ (Red Hat CDN install)
+  yum: name={{ item }} enablerepo=rhel-7-server-openstack-7.0-optools-rpms state=present
+  with_items:
+    - rabbitmq-server
+  when: sensu_use_local_repo is not defined or sensu_use_local_repo == false
+
+- name: Ensure RabbitMQ SSL directory exists
+  file: dest={{ rabbitmq_config_path }}/ssl state=directory
+
+- name: Ensure RabbitMQ SSL certs/keys are in place
+  copy: src={{ item }} dest={{ rabbitmq_config_path }}/ssl
+  with_items:
+    - "{{ sensu_ssl_server_cacert }}"
+    - "{{ sensu_ssl_server_cert }}"
+    - "{{ sensu_ssl_server_key }}"
+  notify:
+    - restart rabbitmq service
+    - restart sensu-api service
+    - restart sensu-server service
+  when: sensu_api_ssl is defined and sensu_api_ssl == true
+
+- name: Deploy RabbitMQ SSL config
+  template:
+    dest: "{{ rabbitmq_config_path }}/rabbitmq.config"
+    src: rabbitmq.config.j2
+    owner: root
+    group: root
+    mode: 644
+  notify: restart rabbitmq service
+  when: sensu_api_ssl is defined and sensu_api_ssl == true
+
+- name: enable rabbitmq plugins
+  rabbitmq_plugin: names=rabbitmq_management,rabbitmq_tracing,rabbitmq_federation state=enabled
+  notify:
+  - restart rabbitmq
+
+- name: Start RabbitMQ and make them survive a reboot
+  service:
+    name={{ item }}
+    enabled=yes
+    state=started
+  with_items:
+    - rabbitmq-server
+
+- name: Configure vhost for RabbitMQ
+  rabbitmq_vhost: name={{ sensu_server_rabbitmq_vhost }} state=present
+
+- name: Add RabbitMQ user with permissions on the vhost
+  rabbitmq_user: user={{ sensu_server_rabbitmq_user }}
+                 password={{ sensu_server_rabbitmq_password }}
+                 vhost={{ sensu_server_rabbitmq_vhost }}
+                 configure_priv=.*
+                 read_priv=.*
+                 write_priv=.*
+                 state=present
+  become: true
+  become_user: rabbitmq

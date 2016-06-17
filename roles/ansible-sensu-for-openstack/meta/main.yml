@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Alexandre Maumené
+  description: Deploy Sensu configured to monitor an OpenStack
+  license: license WTFPL
+  min_ansible_version: 1.9
+  platforms:
+  - name: EL
+    versions:
+    - 7
+  categories:
+  - monitoring
+  - cloud
+  - system
+
+dependencies: []

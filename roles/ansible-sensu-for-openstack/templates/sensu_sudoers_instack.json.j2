@@ -1,0 +1,4 @@
+Defaults:sensu !requiretty
+Defaults:stack !requiretty
+Defaults:sensu secure_path = /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+sensu ALL = NOPASSWD: /usr/bin/heat-manage,/usr/sbin/rabbitmqctl,/usr/libexec/openstack-monitoring/checks/oschecks-check_amqp,{{ sensu_plugins_path }}/megaclisas-status

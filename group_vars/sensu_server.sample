@@ -1,0 +1,21 @@
+---
+#sensu_server_dashboard_user: uchiwa
+#sensu_server_dashboard_password: mypassword
+sensu_smtp_from: "sensu@company.com"
+sensu_smtp_to: "sensu@company.com"
+sensu_smtp_relay: "smtp.company.com"
+#sensu_handlers:
+#  email:
+#    type: pipe
+#    command: "mail -S smtp={{ sensu_smtp_relay }} -s 'Sensu alert' -r {{ sensu_smtp_from }} {{ sensu_smtp_to }}"
+#    filters: [ filter_check_retry_occurrences, filter_disabled_or_silenced ]
+#    severities: [ ok, warning, critical, unknown ] 
+
+#over_os_username: sensu
+#over_os_password: sensu
+#over_os_tenant_name: monitoring
+over_os_auth_url: http://192.168.0.55:5000/v2.0
+#under_os_username: sensu
+#under_os_password: sensu
+#under_os_tenant_name: monitoring
+under_os_auth_url: http://10.20.30.2:5000/v2.0

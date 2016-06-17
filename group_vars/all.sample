@@ -1,0 +1,6 @@
+---
+# Put this in your playbook at group_vars/all
+#sensu_use_local_repo: false
+#sensu_use_upstream_version: false
+#sensu_api_ssl: false
+sensu_server_rabbitmq_hostname: "10.20.30.42"

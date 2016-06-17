@@ -1,0 +1,48 @@
+---
+- name: generate config client file (Simple Client)
+  template:
+    src=client_simple.json.j2
+    dest={{ sensu_config_path }}/conf.d/client.json
+    owner=sensu
+    group=sensu
+    mode=0640
+    backup=yes
+  notify:
+    - restart sensu client
+
+- name: generate config file ( System json file)
+  template:
+    src=system.json.j2
+    dest={{ sensu_config_path }}/conf.d/system.json
+    owner=sensu
+    group=sensu
+    mode=0640
+    backup=yes
+  notify:
+    - restart sensu client
+
+- name: generate config file ( overcld_generic json file)
+  template:
+    src=overcld_generic.json.j2
+    dest={{ sensu_config_path }}/conf.d/overcld_generic.json
+    owner=sensu
+    group=sensu
+    mode=0640
+    backup=yes
+  notify:
+    - restart sensu client
+
+- name: Copy local sensu plugins
+  copy:
+    src=sensu/plugins/
+    dest={{ sensu_plugins_path }}
+    owner=sensu
+    group=sensu
+    mode=0750
+    backup=yes
+
+- name: Start sensu-client and make it survive a reboot
+  service:
+    name=sensu-client
+    enabled=yes
+    state=started

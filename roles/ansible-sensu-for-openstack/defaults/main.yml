@@ -1,0 +1,81 @@
+---
+# defaults file for sensu
+# When set to 'true', sensu_use_local_repo will make the systems subscribe
+# to rhel-7-server-openstack-7.0-optools-rpms (requires subscription and net access).
+# When set to 'false', sensu_use_local_repo will make the playbook
+# load rpm files from files/rpms/{common,server,client}
+sensu_use_local_repo: false
+sensu_use_upstream_version: false
+
+# Variable to control the installation
+sensu_user_name: sensu
+sensu_group_name: sensu
+sensu_install_client: true
+sensu_install_server: false
+sensu_install_uchiwa: false
+sensu_install_over_api_client: false
+sensu_install_under_api_client: false
+sensu_plugins_path: /opt/sensu/plugins
+sensu_default_interval: 60
+sensu_default_occurrences: 10
+sensu_default_refresh: 1800
+nagios_plugins_path: /usr/lib64/nagios/plugins
+sensu_config_path: /etc/sensu
+rabbitmq_config_path: /etc/rabbitmq
+
+# SSL variables
+dynamic_data_store: data/dynamic
+sensu_api_ssl: false
+sensu_ssl_gen_certs: true
+sensu_ssl_client_cert: "{{ dynamic_data_store }}/{{ groups['sensu_server'][0] }}/{{ sensu_config_path }}/ssl_generation/sensu_ssl_tool/client/cert.pem"
+sensu_ssl_client_key: "{{ dynamic_data_store }}/{{ groups['sensu_server'][0] }}/{{ sensu_config_path }}/ssl_generation/sensu_ssl_tool/client/key.pem"
+sensu_ssl_server_cacert: "{{ dynamic_data_store }}/{{ groups['sensu_server'][0] }}/{{ sensu_config_path }}/ssl_generation/sensu_ssl_tool/sensu_ca/cacert.pem"
+sensu_ssl_server_cert: "{{ dynamic_data_store }}/{{ groups['sensu_server'][0] }}/{{ sensu_config_path }}/ssl_generation/sensu_ssl_tool/server/cert.pem"
+sensu_ssl_server_key: "{{ dynamic_data_store }}/{{ groups['sensu_server'][0] }}/{{ sensu_config_path }}/ssl_generation/sensu_ssl_tool/server/key.pem"
+
+#
+sensu_user:  sensu
+sensu_group: sensu
+
+# Sensu client variable
+#sensu_client_hostname: "{{ ansible_hostname }}"
+sensu_client_hostname: "{{ ansible_hostname|default(inventory_hostname) }}"
+
+#sensu_client_address: "{{ ansible_default_ipv4.address }}"
+sensu_client_address: "{{ ansible_ssh_host }}"
+sensu_client_subscription_names:
+  - test
+
+# Sensu Server variable
+sensu_server_redis_host: 127.0.0.1
+
+sensu_server_api_host: 127.0.0.1
+sensu_server_api_port: 4567
+sensu_server_api_user: sensu
+sensu_server_api_password: password
+
+sensu_server_rabbitmq_vhost: /sensu
+sensu_server_rabbitmq_hostname: 192.0.2.3
+sensu_server_rabbitmq_port: 5672
+sensu_server_rabbitmq_user: sensu
+sensu_server_rabbitmq_password: password
+
+sensu_server_dashboard_host: 0.0.0.0
+sensu_server_dashboard_port: 3000
+sensu_server_dashboard_user: uchiwa
+sensu_server_dashboard_password: password
+sensu_server_dashboard_refresh: 5
+
+sensu_checks: []
+sensu_handlers:
+  email:
+    type: pipe
+    command: "mail -S smtp={{ sensu_smtp_relay }} -s 'Sensu alert' -r {{ sensu_smtp_from }} {{ sensu_smtp_to }}"
+
+over_os_username: monitoring
+over_os_password: password
+over_os_tenant_name: monitoring
+
+under_os_username: monitoring
+under_os_password: password
+under_os_tenant_name: monitoring

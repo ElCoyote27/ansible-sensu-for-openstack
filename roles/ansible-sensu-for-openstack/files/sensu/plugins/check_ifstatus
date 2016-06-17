@@ -1,0 +1,76 @@
+#!/usr/bin/perl -w
+#
+# Nagios module to check interfaces status for Solaris v0.1
+# Made by Pierre Mavro
+# Last Modified : 09/04/2009
+#
+# This Nagios module is under GPLv2 License
+#
+########################################################################
+#
+# Installation (nagios client side) :
+# - Copy the script in your nagios plugins directory (usualy /opt/csw/libexec/nagios-plugins)
+# - Set good rights (755 for root:bin)
+#
+# Usage : check_ifstatus
+#
+########################################################################
+#
+# History :
+#
+# v0.1 :
+# + First version
+#
+########################################################################
+
+use strict;
+
+my @nic_names;
+my @nic_errors;
+
+# Get status
+sub get_status {
+    open (IFCFG, "/usr/sbin/ifconfig -a |");
+    my $error_message;
+    while (<IFCFG>) {
+        chomp $_;
+        $error_message='';
+        # Search physical interfaces (not virtual)
+        if ((/(\S+?)(:\d+|):.+flags=\d+\<(\w+).+,(\w+)\>/i) and !(/(\S+?):\d+/)) {
+            #print "$1 $3 $4\n";
+            # Push nic name
+            unless ($1 =~ /^lo.*/i) {
+                push @nic_names, $1;
+                # Check nic up
+                if ($3 ne 'UP') {
+                    $error_message = "nic $1 is down";
+                    # Check nic fails (IPMP status)
+                    if ($4 =~ /FAILED/i) {
+                        $error_message = "$error_message and IPMP is down too";
+                    }
+                }
+                # Push if errors
+                push @nic_errors, $error_message if ($error_message ne '');
+            }
+        }
+    }
+    close (IFCFG);
+}
+
+# Check if help is needed
+if ((defined($ARGV[0])) and ($ARGV[0] =~ /help/i)) {
+    print "Usage : check_ifstatus\n";
+    exit(2);
+}
+
+# Feed to nagios
+&get_status;
+my $total_errors = @nic_errors;
+if ($total_errors ne 0) {
+    print "@nic_errors\n";
+    exit(2);
+} else {
+    print "All network interfaces (@nic_names) work fine\n";
+    exit(0);
+}
+
